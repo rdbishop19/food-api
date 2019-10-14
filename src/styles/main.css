@@ -1,0 +1,18 @@
+body {
+    background-color: aquamarine;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.foodList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.food {
+    width: 20%;
+    min-width: 200px;
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid royalblue;
+    text-align: center;
+}
