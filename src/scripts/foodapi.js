@@ -3,9 +3,10 @@
 const foodFactory = (food) => {
     return `<div class="food">
         <h2>${food.name}</h2>
-        <p>${food.ethnicity}</p>
-        <p>${food.category}</p>
-        <p>${food.ingredients}</p>
+        <p>Ethnicity: ${food.ethnicity}</p>
+        <p>Category: ${food.category}</p>
+        <p class="ingredient-list">Ingredients:</br>${food.ingredients}</p>
+        <p>Country of origin: ${food.countryOrigin}</p>
         </div>`
 }
 
@@ -41,6 +42,8 @@ fetch("http://localhost:8088/food")
                     } else {
                       food.ingredients = "no ingredients listed"
                     }
+                    food.countryOrigin = productInfo.product.countries[0]
+                    food.caloriesServing = productInfo.product.nutriments.energy_serving
 
                     // Produce HTML representation
                     const foodAsHTML = foodFactory(food)

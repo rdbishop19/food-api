@@ -16,3 +16,7 @@ body {
     border: 2px solid royalblue;
     text-align: center;
 }
+
+.ingredient-list {
+    font-size: 0.7em;
+}
