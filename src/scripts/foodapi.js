@@ -1,15 +1,16 @@
 // console.log('Git it!');
 
 const foodFactory = (food) => {
+    const { name, ethnicity, category, ingredients, countryOrigin, energy, fat, sugar } = food;
+    console.log('food', food);
 	return `<div class="food">
-        <h2>${food.name}</h2>
-        <p>Ethnicity: ${food.ethnicity}</p>
-        <p>Category: ${food.category}</p>
-        <p class="ingredient-list">Ingredients:</br>${food.ingredients}</p>
-        <p>Country of origin: ${food.countryOrigin}</p>
-        <p>Calories/serving: ${food.caloriesServing}</p>
-        <p>Fat/serving: ${food.fatServing}</p>
-        <p>Sugar/serving: ${food.sugarServing}</p>
+        <h2>${name}</h2>
+        <p>Ethnicity: ${ethnicity}</p>
+        <p>Category: ${category}</p>
+        <p class="ingredient-list">Ingredients:</br>${ingredients}</p>
+        <p>Calories/serving: ${energy}</p>
+        <p>Fat/serving: ${fat}</p>
+        <p>Sugar/serving: ${sugar}</p>
         </div>`;
 };
 
@@ -20,48 +21,23 @@ const addFoodToDom = (foodEl) => {
 	document.querySelector('.foodList').innerHTML = foodList;
 };
 
-const getValidProductFields = (productInfo, food) => {
-	if (productInfo.product.ingredients_text) {
-		food.ingredients = productInfo.product.ingredients_text;
-	} else {
-		food.ingredients = 'No ingredients listed';
-    }
-    if (productInfo.product.countries){
-        food.countryOrigin = productInfo.product.countries;
-    }
-    if (productInfo.product.nutriments.energy_serving) {
-        food.caloriesServing = `${productInfo.product.nutriments.energy_serving} 
-        ${productInfo.product.nutriments.energy_unit}`;
-    }
-    else {
-        food.caloriesServing = 'Not listed'
-    }
-    if (productInfo.product.nutriments.fat_serving) {
-	    food.fatServing = `${productInfo.product.nutriments.fat_serving} 
-        ${productInfo.product.nutriments.fat_unit}`;
-    }
-    else {
-        food.fatServing = 'Not listed';
-    }
-    if (productInfo.product.nutriments.sugars_serving){
-	    food.sugarServing = `${productInfo.product.nutriments.sugars_serving} 
-        ${productInfo.product.nutriments.sugars_unit}`
-    }
-    else {
-        food.sugarServing = 'Not listed';
-    }
-};
-
 fetch('http://localhost:8088/food').then((response) => response.json()).then((myParsedFoods) => {
 	myParsedFoods.forEach((food) => {
-		console.log(food); // Should have a `barcode` property
+		// console.log(food); // Should have a `barcode` property
 
 		// Now fetch the food from the Food API
 		fetch(`https://world.openfoodfacts.org/api/v0/product/${food.barcode}.json`)
 			.then((response) => response.json())
 			.then((productInfo) => {
-				getValidProductFields(productInfo, food); // refactored into external function
-
+				// getValidProductFields(productInfo, food); // refactored into external function
+                
+                const { ingredients_text } = productInfo.product;
+                const { energy, energy_unit, fat, fat_unit, sugars, sugar_unit } = productInfo.product.nutriments
+                
+                food.ingredients = ingredients_text ? ingredients_text : "No ingredients listed";
+                food.energy = energy_unit ? `${energy} ${energy_unit}` : "Unavailable";
+                food.fat = fat_unit ? `${fat} ${fat_unit}` : "Unavailable";
+                food.sugar = sugar_unit ? `${sugars} ${sugar_unit}` : "Unavailable";
 				// Produce HTML representation
 				const foodAsHTML = foodFactory(food);
 
