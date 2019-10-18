@@ -2,10 +2,15 @@ body {
     background-color: aquamarine;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
+.center {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
 .foodList {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .food {
@@ -14,9 +19,18 @@ body {
     margin: 5px;
     padding: 5px;
     border: 2px solid royalblue;
-    text-align: center;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 3px;
 }
 
 .ingredient-list {
     font-size: 0.7em;
+}
+
+.ingredient-header {
+    margin-bottom: -5px;
+}
+
+h2 {
+    border-bottom: 1px solid #333; 
 }
