@@ -2,15 +2,16 @@ const foodElement = {
     createFoodElement(food) {
         const { name, ethnicity, category, ingredients, countryOrigin, energy, fat, sugar } = food;
         console.log('food', food);
-        
+
 	    return `<div class="food">
             <h2>${name}</h2>
-            <p>Ethnicity: ${ethnicity}</p>
-            <p>Category: ${category}</p>
-            <p class="ingredient-list">Ingredients:</br>${ingredients}</p>
-            <p>Calories/serving: ${energy}</p>
-            <p>Fat/serving: ${fat}</p>
-            <p>Sugar/serving: ${sugar}</p>
+            <p><strong>Ethnicity:</strong> ${ethnicity}</p>
+            <p><strong>Category:</strong> ${category}</p>
+            <p class="ingredient-header"><strong>Ingredients:</strong></br>
+            <p class="ingredient-list">${ingredients}</p>
+            <p><strong>Calories/serving:</strong> ${energy}</p>
+            <p><strong>Fat/serving:</strong> ${fat}</p>
+            <p><strong>Sugar/serving:</strong> ${sugar}</p>
             </div>`;
     },
     getValidProductFields(food, productInfo) {
